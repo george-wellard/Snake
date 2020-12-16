@@ -1,42 +1,41 @@
 "use strict"; // for future-proof error-fixing
 
-ar canvas = document.getElementById('canvas');
+var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var width = canvas.width; // Setting the width to the canvas width
 var height = canvas.height; // Setting the height to the canvas height
 var snake = new Snake(400, 200);
-var snakeBody = new SnakeBody();
 var food = new Food(Math.random(), Math.random()); 
 
 var Top = new HoriBoundaries(0, 1); // Declaring the top rectangle as a boundary object
 var Bottom = new HoriBoundaries(0, 395); // Declaring the bottom rectangle as a boundary object
-var Right = new VertBoundaries(10, 0);
-var Left = new VertBoundaries(780, 0); 
+var Right = new VertBoundaries(0, 0);
+var Left = new VertBoundaries(795, 0); 
 
 function Snake(x_position, y_position) {
-	this.width = 50;
-	this.height = 50; 
+	this.width = 5;
+	this.height = 5; 
 	this.x_position = x_position;
 	this.y_position = y_position;
 }
 
-snake.prototype.render = function() {
+Snake.prototype.render = function() {
 	context.fillRect(this.x_position, this.y_position, this.width, this.height); // Draw snake
 }
 
-snake.prototype.move_up = function(){
+Snake.prototype.move_up = function(){
 	this.y_position -= this.y_speed;
 }
 
-snake.prototype.move_down = function() {
+Snake.prototype.move_down = function() {
 	this.y_position += this.y_speed;
 }
 
-snake.prototype.move_right = function(){
+Snake.prototype.move_right = function(){
 	this.x_position += this.x_speed;
 }
 
-snake.prototype.move_left = function(){
+Snake.prototype.move_left = function(){
 	this.x_position -= this.x_speed;
 }
 
@@ -47,14 +46,14 @@ function Food(x_position, y_position) {
 	this.y_position = y_position;
 }
 
-food.prototype.render = function() {
+Food.prototype.render = function() {
 	context.fillRect(this.x_position, this.y_position, this.width, this.height); // Draw snake
 }
 
-food.prototype.respawn( new_x_position, new_y_position) {
-	this.x_position = new_x_position;
-	this.y_position = new_y_position;
-}
+//food.prototype.respawn( new_x_position, new_y_position) {
+//	this.x_position = new_x_position;
+//	this.y_position = new_y_position;
+//}
 
 function HoriBoundaries(x_position, y_position) {
     this.width = 800; // Width in pixels
@@ -83,6 +82,17 @@ function render() {
 	context.clearRect(0, 0, width, height); // clear the canvas
 	//context.fillRect(width/2, 0, 2, height);
 	
+	snake.render();
+	
+//	food.render();
+	
+	Top.render();
+	
+	Bottom.render();
+	
+	Left.render();
+	
+    Right.render(); 
 	
 }
 
